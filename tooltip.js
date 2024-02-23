@@ -1,0 +1,3 @@
+class Tolltip extends HTMLElement {
+
+}
