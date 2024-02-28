@@ -12,6 +12,10 @@ class Tooltip extends HTMLElement {
                 position: absolute;
                 z-index: 10;
             }
+
+            span {
+              cursor: pointer;
+            }
         </style>
         <slot>Some default</slot>
         <span> (?)</span>
