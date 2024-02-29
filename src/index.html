@@ -10,6 +10,14 @@
   </head>
   <body>
     <!-- <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component> -->
-    <uc-side-drawer></uc-side-drawer>
+    <uc-side-drawer title="Main Menu"></uc-side-drawer>
+
+    <script>
+      const sideDrawer = document.querySelector('uc-side-drawer');
+      setTimeout(() => {
+        sideDrawer.title = 'It changed!';
+        // sideDrawer.setAttribute('title', 'It changed via Attribute');
+      }, 3000);
+    </script>
   </body>
 </html>
