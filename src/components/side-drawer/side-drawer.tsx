@@ -7,6 +7,7 @@ import { Component, h, Prop } from '@stencil/core';
   shadow: true
 })
 export class SideDrawer {
+  // reflects that the title has changed on the DOM element attribute
   @Prop({reflect: true}) title: string;
 
   render() {
