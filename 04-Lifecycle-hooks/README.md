@@ -38,9 +38,9 @@ connectedCallback() {
 ```
 
 **Example Use Cases**:
-Fetching external data when the element is added to the page.
-Setting up event listeners on child elements.
-Rendering content that relies on being attached to the DOM.
+- Fetching external data when the element is added to the page.
+- Setting up event listeners on child elements.
+- Rendering content that relies on being attached to the DOM.
 
 
 ### 3. `disconnectedCallback`
@@ -59,9 +59,9 @@ disconnectedCallback() {
 ```
 
 **Example Use Cases**:
-Removing event listeners added in connectedCallback.
-Stopping timers or animations.
-Freeing resources or cancelling network requests.
+- Removing event listeners added in connectedCallback.
+- Stopping timers or animations.
+- Freeing resources or cancelling network requests.
 
 
 ### 4. `attributeChangedCallback(name, oldValue, newValue)`
@@ -86,9 +86,9 @@ attributeChangedCallback(name, oldValue, newValue) {
 ```
 
 **Example Use Cases**:
-Automatically updating the content or style of the element when an attribute changes.
-Triggering side effects like network requests when specific attributes are modified.
-Synchronizing the state of the element with external properties.
+- Automatically updating the content or style of the element when an attribute changes.
+- Triggering side effects like network requests when specific attributes are modified.
+- Synchronizing the state of the element with external properties.
 
 
 ### 5. `adoptedCallback`
@@ -107,9 +107,9 @@ adoptedCallback() {
 ```
 
 **Example Use Cases**:
-Reinitializing resources or styles that are specific to the document.
-Handling changes that depend on the document context, such as event listeners or styles.
-Managing any cross-document dependencies or resetting the component's state.
+- Reinitializing resources or styles that are specific to the document.
+- Handling changes that depend on the document context, such as event listeners or styles.
+- Managing any cross-document dependencies or resetting the component's state.
 
 ## Full Example
 Here’s how you can use all these hooks together:
