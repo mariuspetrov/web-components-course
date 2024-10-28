@@ -1,109 +1,84 @@
-# Stencil Component Lifecycle Hooks
+In addition to web components lifecycle hooks and Stencil lifecycle hooks, Stencil provides several other predefined methods and properties that can be very useful when developing components. Here’s an overview of some of them:
 
-Stencil, a modern compiler for building Web Components, extends the standard Web Component lifecycle with additional hooks. These lifecycle hooks make it easier to control the component's behavior and manage setup, updates, and teardown.
 
-## Lifecycle Hooks Overview
+### 1. `watch()`
 
-### 1. `componentWillLoad`
-- **Purpose**: Called once, just before the component is rendered for the first time.
-- **Example Use**: Fetching initial data, initializing component properties, or preparing computed values.
+**Description**: Used to watch specific properties for changes. When the property changes, the associated method is called.
 
 ```javascript
-componentWillLoad() {
-  console.log('Component is about to load');
-  this.data = await fetchData();
+@Prop() myProp: string;
+
+@Watch('myProp')
+watchHandler(newValue: string, oldValue: string) {
+  // Logic when myProp changes
 }
 ```
 
-### 2. `componentDidLoad`
-- **Purpose**: Called once, after the component has rendered for the first time.
-- **Example Use**: Initializing third-party libraries, measuring DOM, or adding event listeners.
+
+### 2. `@Listen` Decorator
+
+**Description**: Use this decorator to listen to events that bubble up to the component. You can define methods to handle those events.
 
 ```javascript
-componentDidLoad() {
-  console.log('Component has loaded');
-  this.initializeThirdPartyLib();
+@Listen('click')
+handleClick(event: MouseEvent) {
+  // Handle click event
 }
 ```
 
-### 3. `componentWillRender`
-- **Purpose**: Called before every re-render (but not for the initial render).
-- **Example Use**: Preparing data before each re-render based on state or props changes.
+
+### 3. `@Method` Decorator
+
+**Description**: Marks a method as callable from outside the component. This is useful for creating public APIs for your component.
 
 ```javascript
-componentWillRender() {
-  console.log('Component will re-render');
-  this.prepareRenderData();
+@Method()
+async myPublicMethod() {
+  // Logic for the method
 }
 ```
 
-### 4. `componentDidRender`
-- **Purpose**: Called after every re-render (but not after the initial render).
-- **Example Use**: Updating external UI libraries or triggering animations based on DOM updates.
+
+### 4. `@Prop` and `@State` Decorators
+
+**Description**: These decorators are used to define properties (`@Prop`) and reactive state (`@State`) for your component.
 
 ```javascript
-componentDidRender() {
-  console.log('Component has re-rendered');
-  this.updateDomDependentState();
-}
+@Prop() name: string;   // Public property
+@State() count: number; // Internal state
 ```
 
-### 5. `componentWillUpdate`
-- **Purpose**: Called before the component updates due to `state` or `props` changes (not for the initial render).
-- **Example Use**: Preparing or adjusting state based on upcoming changes.
+
+### 5. `hostData`
+
+**Description**: The `hostData` method is used within a Stencil component to define dynamic styles and attributes that are applied to the host element of the component. It allows developers to customize the behavior and appearance of the component based on its internal state or properties.
+
+**Usage**: You can return an object from `hostData` that specifies CSS classes or styles to be applied to the host element. This can help in managing how the component looks and behaves depending on its properties or state.
+
+**Example**:
 
 ```javascript
-componentWillUpdate() {
-  console.log('Component will update');
-  this.adjustDataForUpdates();
+import { Component, Prop, h } from '@stencil/core';
+
+@Component({
+  tag: 'my-component',
+  styleUrl: 'my-component.css',
+  shadow: true,
+})
+export class MyComponent {
+  @Prop() isActive: boolean;
+
+  hostData() {
+    return {
+      class: {
+        'active': this.isActive,
+        'inactive': !this.isActive,
+      },
+    };
+  }
+
+  render() {
+    return <div>Hello, Stencil!</div>;
+  }
 }
 ```
-
-### 6. `componentDidUpdate`
-- **Purpose**: Called after the component updates due to changes in `state` or `props`.
-- **Example Use**: Responding to state or property changes with side effects, such as updating external libraries.
-
-```javascript
-componentDidUpdate() {
-  console.log('Component did update');
-  this.refreshDataAfterUpdate();
-}
-```
-
-### 7. `disconnectedCallback`
-- **Purpose**: Called when the component is removed from the DOM.
-- **Example Use**: Cleaning up resources, removing event listeners, or freeing memory.
-
-```javascript
-disconnectedCallback() {
-  console.log('Component has been removed from the DOM');
-  this.cleanup();
-}
-```
-
-### 8. `attributeChangedCallback`
-- **Purpose**: Called when a watched attribute changes. Stencil typically handles this via `@Prop` decorators.
-- **Example Use**: Responding to attribute changes without needing to re-render the whole component.
-
-```javascript
-attributeChangedCallback(name, oldValue, newValue) {
-  console.log(`Attribute ${name} changed from ${oldValue} to ${newValue}`);
-}
-```
-
-### 9. `render`
-- **Purpose**: The render method defines the JSX or HTML structure of the component.
-- **Example**:
-
-```javascript
-render() {
-  return (
-    <div>
-      <p>Hello, {this.name}</p>
-    </div>
-  );
-}
-```
-
-## Summary
-Stencil's lifecycle hooks provide fine-grained control over component rendering, allowing you to manage setup, updates, and teardown efficiently. Leveraging these hooks makes it easier to handle complex interactions and dependencies within your components.
