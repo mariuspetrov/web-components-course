@@ -1,0 +1,20 @@
+# ignore node_modules
+node_modules/
+
+# ignore log files
+logs/*.log
+
+# ignore files created by the operating system
+.DS_Store
+
+# ignore environment variables
+.env
+
+# ignore build files
+dist/
+
+# ignore www
+www
+
+# ignore stencil files
+.stencil
